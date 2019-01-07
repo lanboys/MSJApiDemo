@@ -11,13 +11,10 @@ import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.RFonts;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.URL;
 
 public class DocToPDFConverter extends Converter {
 
@@ -36,10 +33,10 @@ public class DocToPDFConverter extends Converter {
             Mapper fontMapper = new IdentityPlusMapper();
             String fontFamily = "SimSun";
 
-            Resource fileRource = new ClassPathResource("simsun.ttf");
-            String path = fileRource.getFile().getAbsolutePath();
-            URL fontUrl = new URL("file:" + path);
-            PhysicalFonts.addPhysicalFont(fontUrl);
+            //Resource fileRource = new ClassPathResource("simsun.ttf");
+            //String path = fileRource.getFile().getAbsolutePath();
+            //URL fontUrl = new URL("file:" + path);
+            //PhysicalFonts.addPhysicalFont(fontUrl);
 
             PhysicalFont simsunFont = PhysicalFonts.get(fontFamily);
             fontMapper.put(fontFamily, simsunFont);

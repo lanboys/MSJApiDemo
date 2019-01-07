@@ -69,7 +69,7 @@ public class DemoController {
 
     public static void main(String[] args) throws Exception {
 
-        File file = new File("E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\aa.txt");
+        File file = new File("D:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\aa.txt");
 
         //FileUtils.cover(file);
         //
@@ -80,38 +80,45 @@ public class DemoController {
         //     System.out.println("main(): ----------");
 
         Map<String, String> map = new HashMap<String, String>();
-
+        //
         map.put("${name}", "seawater");
         map.put("${idNo}", "0000-0000");
-        String srcPath = "E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\aa2.docx";
-        String destPath = "E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\dd.doc";
-        searchAndReplace(srcPath, destPath, map);
+        String srcPath = "D:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\aa2.docx";
+        String destPath = "D:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\dd2.docx";
+        docxSearchAndReplace(srcPath, destPath, map);
+        //String destPath8 = "D:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\dd6.doc";
+        //searchAndReplace(destPath, destPath8, map);
 
-        //Document document1 = new Document();
-        //String destPath1 = "E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\dd.pdf";
-        //
-        //FileOutputStream outputStream = new FileOutputStream(destPath1);
-        //PdfWriter.getInstance(document1, outputStream);
-        //
-        //document1.open();
-        //document1.add(new Paragraph("Hello World"));
-        //document1.close();
+        //The supplied data appears to be in the OLE2 Format. You are calling the part of POI that
+        // deals with OOXML (Office Open XML) Documents. You need to call a different part of POI
+        // to process this data (eg HSSF instead of XSSF)
+
+
 
         //if (url.endsWith(".docx")) {
         //    converter = new DocxToPDFConverter(inputStream, outputStream, true, true);
         //    converter.convert();
         //    fileInputStream = new FileInputStream(file);
         //} else if (url.endsWith(".doc")) {
-        String destPath1 = "E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\aa2.docx";
-        String destPath2 = "E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\ddf.pdf";
+        //String destPath1 = "D:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\dd2.doc";
+        String destPath2 = "D:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\ddf.pdf";
 
-        InputStream inputStream = new FileInputStream(destPath1);
+        //The supplied data appears to be in the OLE2 Format. You are calling the part of POI that
+        // deals with OOXML (Office Open XML) Documents. You need to call a different part of POI
+        // to process this data (eg HSSF instead of XSSF)
+
+        //The supplied data appears to be in the Office 2007+ XML. You are calling the part of POI
+        // that deals with OLE2 Office Documents. You need to call a different part of POI
+        // to process this data (eg XSSF instead of HSSF)
+
+        InputStream inputStream = new FileInputStream(destPath);
         OutputStream outputStream = new FileOutputStream(destPath2);
-        DocToPDFConverter converter = new DocToPDFConverter(inputStream, outputStream, true, true);
+        DocxToPDFConverter converter = new DocxToPDFConverter(inputStream, outputStream, true, true);
         converter.convert();
     }
 
-    public static void searchAndReplace(String srcPath, String destPath, Map<String, String> map) {
+    public static void docxSearchAndReplace(String srcPath, String destPath, Map<String, String> map) {
+        // 操作 docx文件 不只是单纯文件名doc
         try {
 
             XWPFDocument document = new XWPFDocument(POIXMLDocument.openPackage(srcPath));
