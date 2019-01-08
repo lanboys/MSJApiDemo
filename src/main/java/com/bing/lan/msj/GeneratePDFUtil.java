@@ -1,9 +1,12 @@
 package com.bing.lan.msj;
 
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
@@ -36,7 +39,7 @@ public class GeneratePDFUtil {
             out = new FileOutputStream(newPDFPath);// 输出流
             reader = new PdfReader(templatePath);// 读取pdf模板
             bos = new ByteArrayOutputStream();
-            stamper = new PdfStamper(reader, out);
+            stamper = new PdfStamper(reader, bos);
             AcroFields form = stamper.getAcroFields();
 
             // 给表单添加中文字体 这里采用系统字体。不设置的话，中文可能无法显示
@@ -62,17 +65,19 @@ public class GeneratePDFUtil {
             stamper.close();
             reader.close();
 
-            //Document doc = new Document();
-            //PdfCopy copy = new PdfCopy(doc, out);
-            //doc.open();
-            //PdfReader reader1 = new PdfReader(bos.toByteArray());
-            //int numberOfPages = reader1.getNumberOfPages();
-            //for (int i = 2; i < numberOfPages + 1; i++) {
-            //    PdfImportedPage importPage = copy.getImportedPage(reader1, i);
-            //    copy.addPage(importPage);
-            //}
-            //doc.close();
-            //out.close();
+
+            // 拷贝操作 可以直接返回流
+            Document doc = new Document();
+            PdfCopy copy = new PdfCopy(doc, out);
+            doc.open();
+            PdfReader reader1 = new PdfReader(bos.toByteArray());
+            int numberOfPages = reader1.getNumberOfPages();
+            for (int i = 2; i < numberOfPages + 1; i++) {
+                PdfImportedPage importPage = copy.getImportedPage(reader1, i);
+                copy.addPage(importPage);
+            }
+            doc.close();
+            out.close();
 
             //Document document1 = new Document();
             //String destPath1 = "E:\\workspace\\IDEA_workspace\\MSJApiDemo\\src\\main\\resources\\dd.pdf";
