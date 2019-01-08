@@ -66,7 +66,8 @@ public class GeneratePDFUtil {
             reader.close();
 
 
-            // 拷贝操作 可以直接返回流
+            // 拷贝合并 操作 可以直接返回流
+            // https://zhuchengzzcc.iteye.com/blog/1603671
             Document doc = new Document();
             PdfCopy copy = new PdfCopy(doc, out);
             doc.open();
